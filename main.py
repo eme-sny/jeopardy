@@ -1,10 +1,12 @@
 
 # get email address 
-def email_input ():
+def greet ():
     print("Hello! Welcome to Jeapordy.\nOnce a day I'll send you a Jeapordy question, and later I'll follow up with the answer.")
     print()
     print("First, I'll need your email address.")
-    email = input("Where should I send your Jeapordy question? ")
+
+def email_input ():
+    email = input("Type your email address: ")
     print()
     return email 
 
@@ -24,20 +26,19 @@ def validate_email (email):
     if len(email) < 3:
         error_count = error_count + 1 
         error_set = list(("Not enough characters"))
-    else: 
-        for c in email:
-            if c == "@":
-                char1_count = char1_count + 1  
-                if char1_count > 1: 
-                    error_count += 1
-                    error_set.add("Too many @ symbols")
-            elif c == ".":
-                char2_count += 1
-            elif not (c.isalpha()) and not (c.isnumeric()) and c != '-' and c != '/':
-                error_set.add("Invalid character: " + c) 
+    for c in email:
+        if c == "@":
+            char1_count += 1  
+            if char1_count > 1: 
+                error_count += 1
+                error_set.add("Too many @ symbols")
+        elif c == ".":
+            char2_count += 1
+        elif not (c.isalpha()) and not (c.isnumeric()) and c != '-' and c != '/':
+            error_set.add("Invalid character: " + c) 
     if char1_count < 1:
         error_set.add("Missing character: @")
-    elif char2_count < 1:
+    if char2_count < 1:
         error_set.add("Missing character: .")
     return error_set 
 
@@ -50,8 +51,39 @@ def print_errors (error_set):
         for error in error_set: 
             print(error)
 
-# user can correct address if needed 
-#user_check = input("Let's make sure I got that right. Your email address is " + email + "\nRight?" )
+def review_email (email):
+    # user reviews email 
+    user_check = input("Let's make sure I got that right. Your email address is " + email + "\nRight? (y/n)\n" )
+    print()
+    return user_check
+
+def update_email (email, tries, limit):
+    is_correct = review_email(email)
+    if is_correct == "y":
+        print("Great!")
+    else: 
+        while tries < limit - 1: 
+            if is_correct == "n": #there is a bug here if you say no twice in a row 
+                new_email = email_input()
+                tries += 1
+                email_errors = validate_email(new_email) 
+                print_errors(email_errors)
+                review_email(new_email)
+                update_email(new_email, tries, limit - tries)
+            else: 
+                print("Invalid input")
+                new_email = email_input()
+                tries += 1 
+                email_errors = validate_email(new_email) 
+                print_errors(email_errors)
+                review_email(new_email)
+                update_email(new_email, tries, limit - tries)
+
+
+def add_email (email):
+    pass 
+
+
 
 # send verificatoin email 
 
@@ -67,9 +99,24 @@ def print_errors (error_set):
 
 
 def main():
+    tries = 0
+    limit = 3 
+    
+    greet()
     new_email = email_input()
-    email_errors = validate_email(new_email)
+    email_errors = validate_email(new_email) 
     print_errors(email_errors)
+    update_email(new_email, tries, limit)
+        
+
+
+    
+
+
+
+
+
+
 
 
 if __name__ == "__main__": 
