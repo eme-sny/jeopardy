@@ -1,6 +1,6 @@
 import requests 
 
-
+# api documentation: https://opentdb.com/api_config.php
 def get_question ():
     url = f"https://opentdb.com/api.php?amount=1"
     response = requests.get(url)
