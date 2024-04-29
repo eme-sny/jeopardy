@@ -1,5 +1,7 @@
 from validateEmail import *
 
+receivers = []
+
 # user provides email address
 def email_input ():
     email = input("Type your email address: ")
@@ -37,7 +39,19 @@ def update_email (email, tries, limit):
     return up_email
 
 # add email address to a list of email addresses 
+# uses a set to avoid duplicates 
 def add_email (email):
-    em_list = set()
-    em_list.add(email)
-    return em_list
+    with open("email_list.csv", "a") as file:
+        file.write(email)
+
+
+# read csv into list 
+def email_dupes(email):
+    with open("email_list.csv", 'r') as file: 
+        receivers = file.read().splitlines()
+        print(receivers)
+    if email in receivers: 
+        print("Email already in list")
+    else:
+        add_email(email)
+        print("Email added")
