@@ -1,6 +1,5 @@
-from validateEmail import *
-
-receivers = []
+from emails.validateEmail import *
+import os
 
 # user provides email address
 def email_input ():
@@ -16,6 +15,7 @@ def review_email (email):
     return user_check
 
 # user can update email with a limited number of tries 
+# need to update this to use regular expression 
 def update_email (email, tries, limit):
     while tries < limit - 1: 
         is_correct = review_email(email)
@@ -38,20 +38,33 @@ def update_email (email, tries, limit):
             update_email(up_email, tries, limit - tries)
     return up_email
 
-# add email address to a list of email addresses 
-# uses a set to avoid duplicates 
-def add_email (email):
-    with open("email_list.csv", "a") as file:
-        file.write(email)
+# takes a list of items and a new item 
+# adds the new item to the top of the list 
+def add_item_to_csv (item, csv):
+    with open (csv, "a") as file:
+        file.write("\n" + item)
+    print("Item added")
+        
+# add item to file if file exists 
+def check_csv_for_item(item, csv):
+    if does_file_exist == True:
+        #print(does_file_exist)
+        with open(csv, 'r') as file: 
+            inFile = file.read().splitlines()
+            if item in inFile: 
+                print("Item already in list")
+            else:
+                add_item_to_csv (item, csv)
 
-
-# read csv into list 
-def email_dupes(email):
-    with open("email_list.csv", 'r') as file: 
-        receivers = file.read().splitlines()
-        print(receivers)
-    if email in receivers: 
-        print("Email already in list")
     else:
-        add_email(email)
-        print("Email added")
+        add_item_to_csv(item, csv)
+
+# check if file exists and return boolean 
+def does_file_exist(csv):
+    return os.path.isfile(csv)
+
+# create csv file that contains item 
+#def create_csv_file(filename, item):
+#    with open (filename, 'x') as file:
+#        file.write(item)
+

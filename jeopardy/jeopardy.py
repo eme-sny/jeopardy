@@ -1,6 +1,6 @@
 import requests 
 import base64
-from getToken import *
+from jeopardy.getToken import *
 
 # api documentation: https://opentdb.com/api_config.php
 def get_question ():

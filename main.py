@@ -1,8 +1,9 @@
-
-from rules import *
-from newEmail import * 
-from question import *
-from jeopardyVars import *
+from jeopardy.rules import *
+from addToList import * 
+from jeopardy.jeopardy import *
+from jeopardy.jeopardyVars import *
+from emails.validateEmail import *
+import os
 
 def main():
     # user has limited appempts to update email address
@@ -14,8 +15,12 @@ def main():
     email_errors = validate_email(new_email) 
     print_errors(email_errors)
     new_email = update_email(new_email, tries, limit)
-    email_dupes(new_email)
-    #jeopardy = get_question()
+    check_csv_for_item(new_email, email_list)
+    question = get_question()
+   # sendEmail(question)
+   # answer = get_answer()
+   # sendEmail(answer)
+
     #jeopardyVars()
 
 if __name__ == "__main__": 
