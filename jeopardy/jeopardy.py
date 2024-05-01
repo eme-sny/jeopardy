@@ -1,15 +1,15 @@
 import requests 
 import base64
-from jeopardy.getToken import *
+from jeopardy.jeopardyVars import *
 
 # api documentation: https://opentdb.com/api_config.php
 def get_question ():
+    dailyQ = {}
     TOKEN = str(getToken())
     k = ['question', 'answer']
     url = str(f"https://opentdb.com/api.php?amount=1&type=multiple&encode=base64&token=")
     req = url + TOKEN
-    print(req)
-    response = requests.get(url)
+    response = requests.get(req)
     data = response.json()
     res_code = data['response_code']
     if res_code == 0: 

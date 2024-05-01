@@ -38,8 +38,7 @@ def update_email (email, tries, limit):
             update_email(up_email, tries, limit - tries)
     return up_email
 
-# takes a list of items and a new item 
-# adds the new item to the top of the list 
+# adds an item to a csv file 
 def add_item_to_csv (item, csv):
     with open (csv, "a") as file:
         file.write("\n" + item)
@@ -48,7 +47,6 @@ def add_item_to_csv (item, csv):
 # add item to file if file exists 
 def check_csv_for_item(item, csv):
     if does_file_exist == True:
-        #print(does_file_exist)
         with open(csv, 'r') as file: 
             inFile = file.read().splitlines()
             if item in inFile: 
@@ -68,3 +66,8 @@ def does_file_exist(csv):
 #    with open (filename, 'x') as file:
 #        file.write(item)
 
+# write csv to list 
+def from_csv_to_list (csv):
+    with open(csv, 'r') as file:
+        list = file.read()
+    return(list)

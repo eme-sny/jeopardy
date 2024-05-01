@@ -1,4 +1,17 @@
-from jeopardy.jeopardyVars import *
+from email.message import EmailMessage
+import ssl
+import smtplib
 
-# write email 
-# input: sender, receiver, password, text 
+def createEmail (sender, password, receiver, subject, body):
+    em = EmailMessage()
+    em['From'] = sender
+    em['To'] = receiver
+    em['Subject'] = subject
+    em.set_content(body)
+
+    print(receiver)
+
+    smtp = smtplib.SMTP("smtp.gmail.com", 587)
+    smtp.starttls()
+    smtp.login(sender,password)
+    smtp.sendmail(sender, receiver, em.as_string( ))
