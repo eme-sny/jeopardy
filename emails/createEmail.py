@@ -12,4 +12,4 @@ def createEmail (sender, password, receiver, subject, body):
     smtp = smtplib.SMTP("smtp.gmail.com", 587)
     smtp.starttls()
     smtp.login(sender,password)
-    smtp.sendmail(sender, receiver, em.as_string( ))
+    smtp.sendmail(sender, receiver, em.as_string())
