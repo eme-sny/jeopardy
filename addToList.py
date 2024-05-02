@@ -1,5 +1,6 @@
 from emails.validateEmail import *
 import os
+import csv
 
 # user provides email address
 def email_input ():
@@ -61,13 +62,10 @@ def check_csv_for_item(item, csv):
 def does_file_exist(csv):
     return os.path.isfile(csv)
 
-# create csv file that contains item 
-#def create_csv_file(filename, item):
-#    with open (filename, 'x') as file:
-#        file.write(item)
-
 # write csv to list 
-def from_csv_to_list (csv):
-    with open(csv, 'r') as file:
-        list = file.read()
-    return(list)
+def from_csv_to_list (file):
+    with open(file, 'r') as file:
+        items = csv.reader(file)
+        list_of_items = list(items)
+    print(list_of_items)
+    return(list_of_items)
