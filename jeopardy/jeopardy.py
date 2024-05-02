@@ -2,6 +2,7 @@ import requests
 import base64
 from urllib.parse import unquote
 from jeopardy.jeopardyVars import *
+from random import randrange
 
 # api documentation: https://opentdb.com/api_config.php
 def get_question ():
@@ -16,7 +17,8 @@ def get_question ():
     else: 
        print("got new question")
        question_dict = parse_question(data)
-       formatted_question = format_question(question_dict)
+       shuffled_question = shuffle_choices(question_dict)
+       formatted_question = format_question(shuffled_question)
     return(formatted_question)
 
 def parse_question (trivia_response):
@@ -34,3 +36,22 @@ def parse_question (trivia_response):
 def format_question (dailyQ):
     q_email_body = f"{dailyQ.get('question')}\n\na. {dailyQ.get('correct_a')}\nb. {dailyQ.get('incorrect_a1')}\nc. {dailyQ.get('incorrect_a2')}\nd. {dailyQ.get('incorrect_a3')}"
     return q_email_body
+
+def shuffle_choices (question_dict):
+    print(question_dict)
+    question_dict.pop("question")
+    print(question_dict)
+    c = 0
+    sorts = randrange(25)
+    #while c < sorts:
+    keys = question_dict.keys()
+    print(keys)
+    index = randrange(4)
+    print(index)
+    shufffle_key = question_dict[index]
+    #print(shufffle_key)
+    #question_dict.pop(index)
+    #  question_dict.append(keys[2])
+    #  c += 1
+    #  print(question_dict)
+    return(question_dict)
