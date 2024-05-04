@@ -41,8 +41,11 @@ def update_email (email, tries, limit):
 
 # adds an item to a csv file 
 def add_item_to_csv (item, csv):
+    items = []
+    items.append(item)
     with open (csv, "a") as file:
-        file.write("\n" + item)
+        writer = csv.writer(file)
+        writer.writerow(items)
     print("Item added")
         
 # add item to file if file exists 

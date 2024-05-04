@@ -13,9 +13,6 @@ def validate_email (email):
    at_char = 0
    per_char = 0
    validated_email = (re.findall(r"^\w{1,}[.|\w]{0,}[@]{1}[.|\w]{1,}[.]{1,}\w{1,}$", email))
-   print(validated_email)
-   if not validated_email:
-       print("list is empty")
 
    for c in email:
        if c == "@":

@@ -22,7 +22,7 @@ def main():
    # email_errors = validate_email(new_email) 
     if validate_email(new_email) == True:
         # user confirms email and upates if needed
-        new_email = update_email(new_email, tries, limit)
+        #new_email = update_email(new_email, tries, limit)
         # check for email in list, if not already in list add it
         check_csv_for_item(new_email, email_filename)
         # read email csv file and store emails in list
