@@ -19,10 +19,9 @@ def get_question ():
        question_dict = parse_question(data)
        shuffled_question = shuffle_choices(question_dict)
        formatted_question = format_question(shuffled_question)
-       formatted_answer = format_answer(question_dict)
-       email_formats = [formatted_question, formatted_answer]
-
-    return(email_formats)
+       format_and_save_answer(question_dict)
+       question_email_formatted = formatted_question
+    return question_email_formatted
 
 def parse_question (trivia_response):
     dailyQ = {}
@@ -40,9 +39,10 @@ def format_question (dailyQ):
     q_email_body = f"{dailyQ.get('question')}\n\na. {dailyQ.get('a1')}\nb. {dailyQ.get('a2')}\nc. {dailyQ.get('a3')}\nd. {dailyQ.get('a4')}"
     return q_email_body
 
-def format_answer (dailyQ):
-    q_email_body = f"Correct answer: {dailyQ.get('a1')}"
-    return q_email_body
+def format_and_save_answer (dailyQ):
+    a_email_body = f"Correct answer: {dailyQ.get('a1')}"
+    with open (answer_filename, "w") as file:
+        file.write(a_email_body)
 
 def shuffle_choices (question_dict):
     question = question_dict.get("question")
