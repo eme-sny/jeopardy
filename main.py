@@ -41,6 +41,7 @@ def main():
             createEmail(email_sender, email_password, email_list, question_email_subject, question)
         elif args[2] == valid_arguments[3]:
             with open (answer_filename, "r") as file:
+                #### FIX: issue reading answer from file and into email body 
                 answer = csv.reader(file)
                 list_of_answers = list(answer)
                 answer = str(list_of_answers[0])
