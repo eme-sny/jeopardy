@@ -19,7 +19,7 @@ def main():
                        "--answer"]
     args = sys.argv
     
-    if True:
+    if args[1] == valid_arguments[0]:
         # get user's email address
         greet()
         new_email = email_input()
