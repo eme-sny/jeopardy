@@ -1,8 +1,9 @@
 import requests 
 import base64
 from urllib.parse import unquote
-from jeopardy.jeopardyVars import *
+from trivia.triviaVars import *
 import random
+import csv
 
 # api documentation: https://opentdb.com/api_config.php
 def get_question ():
@@ -15,7 +16,6 @@ def get_question ():
     if res_code != 0: 
        print("failed to get question")
     else: 
-       print("got new question")
        question_dict = parse_question(data)
        shuffled_question = shuffle_choices(question_dict)
        formatted_question = format_question(shuffled_question)
@@ -43,6 +43,13 @@ def format_and_save_answer (dailyQ):
     a_email_body = f"Correct answer: {dailyQ.get('a1')}"
     with open (answer_filename, "w") as file:
         file.write(a_email_body)
+
+def read_answer_from_file (answer_file):
+    with open (answer_file, 'r') as file:
+       answer_file = csv.reader(file)
+       for answer in file:
+        a_email_body = answer
+    return a_email_body
 
 def shuffle_choices (question_dict):
     question = question_dict.get("question")

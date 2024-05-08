@@ -1,4 +1,5 @@
 import re
+import sys
 
 # validate email address 
 # must have one '@'
@@ -8,7 +9,6 @@ import re
 # contains at least on letter or number - loop through and count (for effieciency, stop once we find one)
 def validate_email (email):
    errors = []
-#   validated_email = []
    char_count = len(email)
    at_char = 0
    per_char = 0
@@ -20,15 +20,13 @@ def validate_email (email):
        elif c == ".":
            per_char =+ 1
 
-
    if len(validated_email) != 0:
        if validated_email[0] == email:
            print("Email address is valid. Adding to list....")
-           return True
-       else: 
-           # to avoid throwing out valid email addresses 
-           # an email address that doesn't match regex will still be added to the list 
-           return True
+      # else: 
+      #     # to avoid throwing out valid email addresses 
+      #     # an email address that doesn't match regex will still be added to the list 
+      #     return True
 
    if not validated_email:
        errors.append("Email address has errors")
@@ -45,21 +43,7 @@ def validate_email (email):
        
    for e in errors:
        print(e)
-
-   print("Try again.... ")
-   return False
-
-
-
-
-
-
-#def print_errors (error_set): 
-#    if len(error_set) == 0:
-#        print("Thank you! Your email adddress is valid")
-#    else: 
-#        error_count = len(error_set)
-#        print("Your email address has " + str(error_count) + " errors:")
-#        for error in error_set: 
-#            print(error) # need to add something after this to make sure emails that aren't valid are not stored 
-#        print("Try again.... ")
+    
+   if errors: 
+       print("Try again.... ")
+       sys.exit()
